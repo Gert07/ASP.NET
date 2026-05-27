@@ -10,7 +10,7 @@ builder.Services.AddCors(FileOptions =>
 {
     FileOptions.AddPolicy("AllowReact", policy =>
     {
-        policy.WithOrigins("https://localhost:5500").AllowAnyMethod().AllowAnyHeader();
+        policy.WithOrigins("https://localhost:5173").AllowAnyMethod().AllowAnyHeader();
     });
 });
 
