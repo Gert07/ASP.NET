@@ -1,5 +1,4 @@
-// Adjust the port to match your .NET backend's launchSettings.json
-const API_URL = 'http://localhost:5000/api/recipes'; 
+const API_URL = import.meta.env.VITE_API_URL ?? '/api/recipes';
 
 /**
  * Fetches all recipes from the database.

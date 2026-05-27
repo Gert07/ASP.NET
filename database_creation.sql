@@ -14,4 +14,4 @@ CREATE TABLE Recipes (
 
 INSERT INTO RECIPES (Title, Description, Ingredients, Instructions, MakingTimeMinutes, CreatedAt)
 VALUES
-('Classic Pancakes', 'Fluffy breakfast pancakes.', 'Flour, Milk, Eggs, Sugar', 'Mix ingredients. Cook on skillet.', 15)
+('Classic Pancakes', 'Fluffy breakfast pancakes.', 'Flour, Milk, Eggs, Sugar', 'Mix ingredients. Cook on skillet.', 15, GETDATE())

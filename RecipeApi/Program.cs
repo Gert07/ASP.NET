@@ -3,19 +3,22 @@ using RecipeApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<RecipeCotext>(FileOptions =>
-    FileOptions.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<RecipeContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddCors(FileOptions =>
+builder.Services.AddCors(options =>
 {
-    FileOptions.AddPolicy("AllowReact", policy =>
+    options.AddPolicy("AllowReact", policy =>
     {
-        policy.WithOrigins("https://localhost:5173").AllowAnyMethod().AllowAnyHeader();
+        policy
+            .WithOrigins("http://localhost:5173", "https://localhost:5173")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
     });
 });
 
 builder.Services.AddControllers();
-var app = builder.Services.Build();
+var app = builder.Build();
 
 app.UseCors("AllowReact");
 app.MapControllers();
