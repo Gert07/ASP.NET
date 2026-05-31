@@ -34,5 +34,49 @@ namespace RecipeApi.Controllers
             
             return CreatedAtAction(nameof(GetRecipes), new { id = recipe.Id }, recipe);
         }
+
+        // PUT: api/recipes/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateRecipe(int id, Recipe recipe)
+        {
+            if (id != recipe.Id)
+            {
+                return BadRequest();
+            }
+
+            var existingRecipe = await _context.Recipes.FindAsync(id);
+
+            if (existingRecipe == null)
+            {
+                return NotFound();
+            }
+
+            existingRecipe.Title = recipe.Title;
+            existingRecipe.Description = recipe.Description;
+            existingRecipe.Ingredients = recipe.Ingredients;
+            existingRecipe.Instructions = recipe.Instructions;
+            existingRecipe.PrepTimeMinutes = recipe.PrepTimeMinutes;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // DELETE: api/recipes/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRecipe(int id)
+        {
+            var recipe = await _context.Recipes.FindAsync(id);
+
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            _context.Recipes.Remove(recipe);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
