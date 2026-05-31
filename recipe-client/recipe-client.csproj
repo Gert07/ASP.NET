@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="index.html" />
+    <None Include="package.json" />
+    <None Include="package-lock.json" />
+    <None Include="vite.config.js" />
+    <None Include="eslint.config.js" />
+    <None Include="README.md" />
+    <None Include="public\**\*" />
+    <None Include="src\**\*" />
+  </ItemGroup>
+
+  <Target Name="BuildReactClient" BeforeTargets="Build">
+    <Exec Command="npm install" Condition="!Exists('node_modules')" />
+    <Exec Command="npm run build" />
+  </Target>
+</Project>
